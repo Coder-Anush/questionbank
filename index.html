@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Question Bank</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+<div class="container mt-5 flex-grow-1">
+    <div class="card shadow-lg rounded p-4">
+        <h2 class="mb-4 text-center">Search Question Bank</h2>
+        <form th:action="@{/search}" method="get" class="row g-2 align-items-center justify-content-center">
+            <div class="col-auto" style="min-width: 250px;">
+                <input
+                        id="searchInput"
+                        class="form-control"
+                        type="text"
+                        name="query"
+                        placeholder="Enter course name"
+                        required
+                />
+            </div>
+
+            <div class="col-auto">
+                <select id="filterSelect" class="form-select" name="filter" aria-label="Filter search">
+                    <option value="course" selected>Course Name</option>
+                    <option value="code">Course Code</option>
+                    <option value="year">Year</option>
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer class="bg-light text-center text-muted py-3 mt-auto border-top">
+    Created by <strong>Anush</strong>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Change the placeholder text of the input based on selected filter
+    const filterSelect = document.getElementById('filterSelect');
+    const searchInput = document.getElementById('searchInput');
+
+    function updatePlaceholder() {
+        const filter = filterSelect.value;
+        let placeholderText = 'Enter course name';
+
+        if (filter === 'code') {
+            placeholderText = 'Enter course code';
+        } else if (filter === 'year') {
+            placeholderText = 'Enter year';
+        }
+
+        searchInput.placeholder = placeholderText;
+    }
+
+    // Update placeholder on page load and when filter changes
+    filterSelect.addEventListener('change', updatePlaceholder);
+    window.addEventListener('DOMContentLoaded', updatePlaceholder);
+</script>
+
+</body>
+</html>
