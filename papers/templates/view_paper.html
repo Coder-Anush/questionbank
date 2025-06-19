@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Approved Question Papers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f2f4f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #2d2f98;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 22px;
+    }
+
+    .logout-btn {
+      background: white;
+      color: #2d2f98;
+      padding: 8px 14px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: #ddd;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    form {
+      margin-bottom: 30px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      margin-right: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button, .reset-btn {
+      padding: 10px 15px;
+      background-color: #2d2f98;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .reset-btn {
+      background-color: #888;
+    }
+
+    .paper-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+      padding: 20px;
+    }
+
+    .paper-card h3 {
+      margin: 0;
+      color: #2d2f98;
+    }
+
+    .details {
+      font-size: 14px;
+      color: #444;
+      margin: 8px 0;
+    }
+
+    .actions a {
+      display: inline-block;
+      margin-top: 10px;
+      margin-right: 10px;
+      padding: 8px 14px;
+      text-decoration: none;
+      color: white;
+      border-radius: 6px;
+      font-weight: bold;
+      background-color: #2d2f98;
+      transition: background-color 0.3s ease;
+    }
+
+    .actions a:hover {
+      background-color: #1a1c6f;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 50px;
+      color: #888;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  Approved Question Papers
+  <form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="logout-btn">🚪 Logout</button>
+  </form>
+</header>
+
+
+<div class="container">
+  <!-- Filter and Search -->
+  <form method="get">
+    <input type="text" name="q" placeholder="Search course name or code" value="{{ request.GET.q }}">
+    <input type="text" name="year" placeholder="Year" value="{{ request.GET.year }}">
+    <input type="text" name="slot" placeholder="Slot" value="{{ request.GET.slot }}">
+    <input type="text" name="faculty" placeholder="Faculty" value="{{ request.GET.faculty }}">
+    <button type="submit">🔍 Filter</button>
+    <a class="reset-btn" href="{% url 'view_papers' %}">Reset</a>
+  </form>
+
+  <!-- Paper Cards -->
+  {% if papers %}
+  {% for paper in papers %}
+  <div class="paper-card">
+    <h3>{{ paper.course_code }} - {{ paper.course_name }}</h3>
+    <div class="details">
+      Year: {{ paper.year }} |
+      Faculty: {{ paper.faculty }} |
+      Slot: {{ paper.slot }} |
+      Uploaded: {{ paper.uploaded_at|date:"Y-m-d" }}
+    </div>
+    <div class="actions">
+      <a href="{{ paper.file.url }}" target="_blank">👁️ View</a>
+      <a href="{% url 'download_paper' paper.id %}">⬇️ Download</a>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="empty">No approved papers found.</div>
+  {% endif %}
+</div>
+</body>
+</html>

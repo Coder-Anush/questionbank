@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to the Question Bank</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+        }
+        header {
+            background: #2d2f98;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 28px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .tabs a {
+            background: #2d2f98;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .tabs a:hover {
+            background: #1a1c6f;
+        }
+        .intro {
+            font-size: 18px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+<header>Welcome to the Question Bank</header>
+<div class="container">
+    <p class="intro">An open platform to upload, view, and manage question papers securely.</p>
+
+    <div class="tabs">
+        <a href="{% url 'upload' %}">📤 Upload Question Paper</a>
+        <a href="{% url 'view_papers' %}">📂 View Question Papers</a>
+        <a href="/admin/">🛠️ Admin Login</a>
+        <a href="{% url 'login' %}">🔐 Student Login</a>
+        <a href="{% url 'signup' %}">📝 Signup</a>
+        <a href="{% url 'become_uploader' %}">💡 Become a Uploader</a>
+        <a href="{% url 'admin_info' %}">📘 Admin Info</a>
+    </div>
+</div>
+</body>
+</html>

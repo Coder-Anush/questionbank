@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .signup-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 24px;
+            color: #2d2f98;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            background: #2d2f98;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #1c1e6c;
+        }
+
+        .small {
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        .field-wrapper {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div class="signup-box">
+    <h2>Create Student Account</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="field-wrapper">{{ form.registration_number.as_widget }}</div>
+        <div class="field-wrapper">{{ form.name.as_widget }}</div>
+        <div class="field-wrapper">{{ form.password1.as_widget }}</div>
+        <div class="field-wrapper">{{ form.password2.as_widget }}</div>
+        <button type="submit">📝 Sign Up</button>
+    </form>
+    <div class="small">Already registered? <a href="{% url 'login' %}">Login here</a></div>
+</div>
+</body>
+</html>

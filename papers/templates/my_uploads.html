@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Uploads</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f2f4f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #2d2f98;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 22px;
+    }
+
+    .logout-btn {
+      background: white;
+      color: #2d2f98;
+      padding: 8px 14px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .logout-btn:hover {
+      background: #ddd;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #f0f0f0;
+      font-weight: 600;
+    }
+
+    .status {
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+
+    .approved {
+      color: green;
+    }
+
+    .pending {
+      color: #ff9800;
+    }
+
+    .rejected {
+      color: red;
+    }
+
+    .no-uploads {
+      text-align: center;
+      color: #777;
+      font-size: 18px;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  Approved Question Papers
+  <form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="logout-btn">🚪 Logout</button>
+  </form>
+</header>
+
+
+<div class="container">
+  {% if papers %}
+  <table>
+    <thead>
+    <tr>
+      <th>Course</th>
+      <th>Code</th>
+      <th>Faculty</th>
+      <th>Year</th>
+      <th>Status</th>
+      <th>Uploaded</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for paper in papers %}
+    <tr>
+      <td>{{ paper.course_name }}</td>
+      <td>{{ paper.course_code }}</td>
+      <td>{{ paper.faculty }}</td>
+      <td>{{ paper.year }}</td>
+      <td>
+        {% if paper.is_approved %}
+        <span class="status approved">✅ Approved</span>
+        {% elif paper.is_approved is not None %}
+        <span class="status rejected">❌ Rejected</span>
+        {% else %}
+        <span class="status pending">⏳ Pending</span>
+        {% endif %}
+      </td>
+      <td>{{ paper.uploaded_at|date:"Y-m-d" }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="no-uploads">No uploads found.</div>
+  {% endif %}
+</div>
+</body>
+</html>
