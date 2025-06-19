@@ -9,6 +9,11 @@ from django import forms
 from .models import QuestionPaper
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.shortcuts import render
+
+def welcome_page(request):
+    return render(request, 'welcome.html')
+
 
 # ---------- Welcome & Info Pages ----------
 def welcome(request):
