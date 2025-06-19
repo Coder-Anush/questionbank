@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-v$hcqtv^_rtg@_js1ygc41##bm9-_!h2kn31m#7(kax!&v@^dk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['questionbank-lfdh.onrender.com']
 
 
 # Application definition
