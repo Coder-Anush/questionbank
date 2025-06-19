@@ -130,3 +130,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 LOGIN_REDIRECT_URL = '/view/'
 LOGOUT_REDIRECT_URL = '/login/'
 LOGIN_URL = '/login/'
+import os
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
